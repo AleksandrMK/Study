@@ -1,0 +1,39 @@
+1)  u1 = User.objects.create_user(username='Семён')
+    u2 = User.objects.create_user(username='Иван')
+
+2)  Author.objects.create(authorUser=u1)
+    Author.objects.create(authorUser=u2)
+
+3)  Category.objects.create(name='IT')
+    Category.objects.create(name='Спорт')
+    Category.objects.create(name='Погода')
+    Category.objects.create(name='Еда')
+
+4)  author = Author.objects.get(id=1)
+    author = Author.objects.get(id=2)
+    Post.objects.create(author=author, categoryType='NW', title='sometitle', text='sometext')
+    Post.objects.get(id=1).title
+
+5)  Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+    Post.objects.get(id=1).postCategory.add(Category.objects.get(id=2))
+
+6)  Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='anytextbyauthor')
+    Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='anytextbyauthor2')
+    Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='anytextbyauthor3')
+    Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=2).authorUser, text='anytextbyauthor4')
+
+7)  Comment.objects.get(id=1).like()
+    Comment.objects.get(id=2).like()
+    Comment.objects.get(id=2).dislike()
+
+8)  a = Author.objects.get(id=1)
+    a.update_rating()
+
+9)  a = Author.objects.order_by('-ratingAuthor')[:1]
+    for i in a:
+	    i.ratingAuthor
+	    i.authorUser.username
+
+10) Post.objects.order_by('-rating').values('dateCreation', 'author__authorUser__username', 'rating', 'title')[0]
+
+11) Post.objects.order_by('-rating')[0].comment_set.all().values('dateCreation', 'id', 'rating', 'text')
