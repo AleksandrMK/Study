@@ -11,7 +11,7 @@ class Author(models.Model):
 
 
 class Category(models.Model):
-    pass
+    name = models.CharField(max_length=64, unique=True)
 
 
 class Post(models.Model):
