@@ -30,10 +30,15 @@ class Post(models.Model):
     rating = models.SmallIntegerField(default=0)
 
     def like(self):
-        pass
+        self.rating += 1
+        self.save()
 
     def dislike(self):
-        pass
+        self.rating -= 1
+        self.save()
+
+    def preview(self):
+        return None
 
 
 class PostCategory(models.Model):
@@ -49,7 +54,9 @@ class Comment(models.Model):
     ratingComment = models.SmallIntegerField(default=0)
 
     def like(self):
-        pass
+        self.rating += 1
+        self.save()
 
     def dislike(self):
-        pass
+        self.rating -= 1
+        self.save()
