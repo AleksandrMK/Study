@@ -41,8 +41,13 @@ class PostCategory(models.Model):
     categoryThrough = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
-
 class Comment(models.Model):
+    commentPost = models.ForeignKey(Post, on_delete=models.CASCADE)
+    commentUser = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    dateCreation = models.DateTimeField(auto_now_add=True)
+    ratingComment = models.SmallIntegerField(default=0)
+
     def like(self):
         pass
 
