@@ -1,7 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Author(models.Model):
+    authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
+    ratingAuthor = models.SmallIntegerField(default=0)
 
     def update_rating(self):
         pass
