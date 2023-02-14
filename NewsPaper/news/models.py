@@ -9,8 +9,15 @@ class Author(models.Model):
 
     def update_rating(self):
         postRat = self.post_set.aggregate(postRating=Sum('rating'))
-        pRat =0
+        pRat = 0
         pRat += postRat.get('postRating')
+
+        commentRat = self.authorUser.comment_set.aggregate(commentRatong=Sum('rating'))
+        cRat = 0
+        cRat += commentRat.get('commentRating')
+
+        self.ratingAuthor = pRat * 3 + cRat
+        self.save()
 
 
 class Category(models.Model):
