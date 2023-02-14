@@ -16,7 +16,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    News = 'NW'
+    NEWS = 'NW'
     ARTICLE = 'AR'
     CATEGORY_CHOICES = (
         (NEWS, 'Новость'),
@@ -37,7 +37,9 @@ class Post(models.Model):
 
 
 class PostCategory(models.Model):
-    pass
+    postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
+    categoryThrough = models.ForeignKey(Category, on_delete=models.CASCADE)
+
 
 
 class Comment(models.Model):
