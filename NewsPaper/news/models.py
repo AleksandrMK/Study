@@ -9,11 +9,13 @@ class Author(models.Model):
 
     def update_rating(self):
         postRat = self.post_set.aggregate(postRating=Sum('rating'))
-        pRat = 0
+        if postRat is None:
+            pRat = 0
         pRat += postRat.get('postRating')
 
         commentRat = self.authorUser.comment_set.aggregate(commentRating=Sum('rating'))
-        cRat = 0
+        if commentRat is None:
+            cRat = 0
         cRat += commentRat.get('commentRating')
 
         self.ratingAuthor = pRat * 3 + cRat
@@ -22,6 +24,9 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return f'id={self.pk} name={self.name}'
 
 
 class Post(models.Model):
@@ -70,3 +75,6 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
+    def __str__(self):
+        return f'id={self.pk} name={self.text}'
