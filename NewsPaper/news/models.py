@@ -55,6 +55,9 @@ class Post(models.Model):
     def preview(self):
         return '{} ... {}'.format(self.text[0:123], str(self.rating))
 
+    def __str__(self):
+        return f'{self.date.strftime("%Y-%m-%d %H:%M")}, {self.header}, {self.text}'
+
 
 class PostCategory(models.Model):
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -75,6 +78,3 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
-
-    def __str__(self):
-        return f'id={self.pk} name={self.text}'
